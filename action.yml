@@ -35,3 +35,6 @@ inputs:
   flags:
     description: "Additional query flags."
     required: false
+  endpoint_url:
+    description: "Custom endpoint-url to pass to AWS CLI. More info: https://docs.aws.amazon.com/cli/latest/reference/#global-options"
+    required: false

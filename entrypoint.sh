@@ -111,13 +111,19 @@ function main {
 
   aws --version
 
+  AWSCLI="aws s3"
+  if [ -z "$INPUT_ENDPOINT_URL" ]
+  then
+    AWSCLI="aws s3 --endpoint-url $INPUT_ENDPOINT_URL"
+  fi
+
   if [ "$COMMAND" == "cp" ] || [ "$COMMAND" == "mv" ] || [ "$COMMAND" == "sync" ]
   then
-    echo aws s3 $COMMAND "$INPUT_SOURCE" "$INPUT_DESTINATION" $INPUT_FLAGS
-    aws s3 "$COMMAND" "$INPUT_SOURCE" "$INPUT_DESTINATION" $INPUT_FLAGS
+    echo $AWSCLI $COMMAND "$INPUT_SOURCE" "$INPUT_DESTINATION" $INPUT_FLAGS
+    $AWSCLI "$COMMAND" "$INPUT_SOURCE" "$INPUT_DESTINATION" $INPUT_FLAGS
   else
-    echo aws s3 $COMMAND "$INPUT_SOURCE" $INPUT_FLAGS
-    aws s3 "$COMMAND" "$INPUT_SOURCE" $INPUT_FLAGS
+    echo $AWSCLI $COMMAND "$INPUT_SOURCE" $INPUT_FLAGS
+    $AWSCLI "$COMMAND" "$INPUT_SOURCE" $INPUT_FLAGS
   fi
 }
 
